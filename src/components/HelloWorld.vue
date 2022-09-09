@@ -1,5 +1,8 @@
 <template>
   <div class="hello">
+    <v-btn>
+      <v-icon>{{ icons.mdiPencilOutline }}</v-icon>
+    </v-btn>
     <h1>{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
@@ -33,12 +36,21 @@
 </template>
 
 <script>
+import { mdiPencilOutline } from '@mdi/js'
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String,
   },
-};
+  setup() {
+    return {
+      icons: {
+        mdiPencilOutline,
+      },
+    }
+  },
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
