@@ -1,6 +1,9 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
+    <div id="app">
+      <d3chart2 title="Bar Chart" xKey="name" yKey="amount" :data="barChartData"/>
+    </div>
     <div class="bar">
       <Bar
         :chart-options="chartOptions"
@@ -26,6 +29,20 @@
         :data="inputHeatMapChartData"
       />
     </v-card-text>
+
+    <v-card
+      style="background-color: black"
+    >
+      <d3chart1></d3chart1>
+    </v-card>
+
+    <v-card>
+      <d3chart3></d3chart3>
+    </v-card>
+
+    <v-card>
+      <d3chart4></d3chart4>
+    </v-card>
   </div>
 </template>
 
@@ -40,12 +57,44 @@ import { mdiPencilOutline } from '@mdi/js'
 import Chart1 from '@/views/Chart1.vue'
 import Chart2 from '@/views/Chart2.vue'
 import { ref, onMounted } from '@vue/composition-api'
+import D3chart1 from '@/views/D3chart1.vue'
+import D3chart2 from '@/views/D3chart2.vue'
+import D3chart3 from '@/views/D3chart3.vue'
+import D3chart4 from '@/views/D3chart4.vue'
 
 ChartJS.register(...registerables)
 
 export default {
   name: 'About',
-  components: { Chart2, Chart1, Bar },
+  components: {
+    D3chart4,
+    D3chart3,
+    D3chart1,
+    D3chart2,
+    Chart2,
+    Chart1,
+    Bar,
+  },
+  data: () => ({
+    barChartData: [
+      {
+        name: 'Roses',
+        amount: 25,
+      },
+      {
+        name: 'Tulips',
+        amount: 40,
+      },
+      {
+        name: 'Daisies',
+        amount: 15,
+      },
+      {
+        name: 'Narcissuses',
+        amount: 9,
+      },
+    ],
+  }),
   props: {
     chartId: {
       type: String,
@@ -138,5 +187,13 @@ export default {
 <style lang="scss">
 .bar {
   width: 400px;
+}
+#app {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #282f36;
+  margin-top: 30px;
 }
 </style>
