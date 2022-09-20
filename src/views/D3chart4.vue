@@ -28,7 +28,7 @@
 
           <line stroke="currentColor" y2="6"></line>
           <text fill="currentColor" y="9" dy="0.71em">
-            {{ 1 }}
+            {{ parseTime(v) }}
           </text>
         </g>
       </g>
@@ -116,6 +116,7 @@ export default {
       return this.line(this.chartData)
     },
     chartData() {
+      console.log(Object.assign(data.map(({ date, value }) => ({ date: new Date(date), value }))))
       return Object.assign(data.map(({ date, value }) => ({ date: new Date(date), value })))
     },
     x() {
