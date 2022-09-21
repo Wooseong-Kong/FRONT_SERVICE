@@ -41,7 +41,7 @@ export default {
   }),
   methods: {
     AnimateLoad() {
-      selectAll('rect')
+      selectAll('.bar-positive')
         .data(this.data)
         .transition()
         .delay((d, i) => {

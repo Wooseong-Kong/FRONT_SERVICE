@@ -144,7 +144,7 @@ export default {
 
 @keyframes dash {
   from {
-    stroke-dashoffset: 822;
+    stroke-dashoffset: 1000;
   }
   to {
     stroke-dashoffset: 0;

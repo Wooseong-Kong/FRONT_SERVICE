@@ -2,7 +2,7 @@
   <div ref="container" class="container">
     <svg class="line-chart">
       <path
-         class="path"
+        class="path"
         :d="chartPath"
         fill="none"
         stroke="steelblue"
@@ -61,8 +61,8 @@
 
 <script>
 import * as d3 from 'd3'
+import { selectAll } from 'd3-selection'
 import data from '../../assets/data.json'
-import { selectAll } from 'd3-selection';
 
 export default {
   name: 'LineChart2',
@@ -135,33 +135,10 @@ export default {
         .x(d => this.x(d.date))
         .y(d => this.y(d.value))
     },
-    // pathLength() {
-    //   const path = d3
-    //     .select('svg')
-    //     .append('path')
-    //     .attr('d', this.line(this.chartData))
-    //     .attr('fill', 'none')
-    //     .attr('stroke-width', 2)
-    //     .attr('stroke', 'blue')
-    //   const pathLength = path.node().getTotalLength()
-    //   console.log(pathLength)
-    // },
-    // transitionPath() {
-    //   const pathLength = path.node().getTotalLength()
-    //   d3
-    //     .transition()
-    //     .ease(d3.easeSin)
-    //     .duration(2500)
-    //
-    //   return d3.
-    //     .attr('stroke-dashoffset', pathLength)
-    //     .attr('stroke-dasharray', pathLength)
-    //     .transition(transitionPath)
-    //     .attr('stroke-dashoffset', 0)
-    // }
   },
   mounted() {
     this.resize()
+    this.AnimateLoad()
     window.addEventListener('resize', this.resize)
   },
   beforeDestroy() {
@@ -172,6 +149,26 @@ export default {
       this.svgWidth = this.$refs.container
       this.svgHeight = this.$refs.container
       console.log(this.$refs.container)
+    },
+    AnimateLoad() {
+      // const path = d3
+      //   .select('svg')
+      //   .append('path')
+      //   .attr('d', this.line(this.chartData))
+      //   .attr('fill', 'none')
+      //   .attr('stroke-width', 2)
+      //   .attr('stroke', 'blue')
+      // const pathLength = path.node().getTotalLength()
+      // console.log(pathLength)
+      selectAll('.path')
+        .data(this.chartData)
+        .transition()
+        .ease(d3.easeLinear)
+        .duration(2500)
+        .attrTween('stroke-dasharray', function() {
+          const length = this.getTotalLength()
+          return d3.interpolate(`0,${length}`, `${length},${length}`)
+        })
     },
   },
 }
@@ -192,9 +189,9 @@ export default {
   width: 100%;
   height: 100%;
 }
-.line-chart:hover path {
-  d: path("M66.039,133.545c0,0-21-57,18-67s49-4,65,8 s30,41,53,27s66,4,58,32s-5,44,18,57s22,46,0,45s-54-40-68-16s-40,88-83,48s11-61-11-80s-79-7-70-41 C46.039,146.545,53.039,128.545,66.039,133.545z");
-}
+/*.line-chart:hover path {*/
+/*  d: path("M66.039,133.545c0,0-21-57,18-67s49-4,65,8 s30,41,53,27s66,4,58,32s-5,44,18,57s22,46,0,45s-54-40-68-16s-40,88-83,48s11-61-11-80s-79-7-70-41 C46.039,146.545,53.039,128.545,66.039,133.545z");*/
+/*}*/
 /*.path {*/
 /*  stroke-dasharray: 1000;*/
 /*  stroke-dashoffset: 1000;*/
